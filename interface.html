@@ -1,0 +1,72 @@
+<head>
+  <title>Rupi Kaur Generator</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <h2>Rupi Kaur-ify Your Life</h2>
+  <form action='message'>
+    Please enter your poem. <br>
+    <input type='text' id='msg' name='message'/>
+    <!--<input type='submit' value='Submit'>-->
+  </form>
+  <button onclick="rupikaur()">Submit</button>
+  <p id="newText"></p>
+  <script>
+  var message2;
+  var message3;
+    function rupikaur() {
+      message2 = $('#msg').val() + " ";
+      console.log(message2);
+      var word_count = 0;
+      var words = [];
+      var word = '';
+      //count words in message and adds each word to array words
+      for (let i = 0; i < message2.length; i++) {
+        if (message2[i] === ' ') {
+          word_count++;
+          words.push(word);
+          word = '';
+        } else {
+          word = word + message2[i];
+        }
+      }
+      //generate array of random line breaks
+      var line_break = [];
+      var random = 0;
+      while (word_count > 0) {
+        random = Math.floor(Math.random() * word_count);
+        if (random < 1) {
+          break;
+        }
+        if (random > 5) {
+          continue;
+        } else {
+          line_break.push(random);
+          word_count -= random;
+        }
+      }
+      //print words with line breaks
+      let word_count2 = 0;
+      var lb = 0;
+      message3 = "";
+      for (let j = 0; j < words.length; j++) {
+        if (word_count2 === line_break[lb]) {
+          console.log(line_break);
+          message3 = message3 + " " + words[j] +  "<br/>";
+          //console.log(message3);
+          //word_count2 = 0;
+          lb++;
+        } else {
+          message3 = message3 + " " + words[j];
+          word_count2++;
+          //console.log(lb);
+          //console.log(line_break[lb]);
+        }
+      }
+      console.log(message3);
+      $('#newText').html(message3);
+    }
+  </script>
+</body>
